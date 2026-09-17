@@ -725,6 +725,170 @@ Advanced analytics
 Student ranking
 Exporting reports
 Cloud database support
+
+## Component Diagram
+
+The main components of the Student Performance Analyzer are:
+
+```text
++------------------------------------------------------+
+|              Student Performance Analyzer            |
++------------------------------------------------------+
+                        |
+        +---------------+---------------+
+        |               |               |
+        v               v               v
++---------------+ +---------------+ +---------------+
+|    Student    | |     Marks     | |  Attendance   |
+|   Management  | |   Management  | |   Management  |
++---------------+ +---------------+ +---------------+
+        |               |               |
+        +---------------+---------------+
+                        |
+                        v
+              +-------------------+
+              | Report Generator  |
+              +-------------------+
+                        |
+                        v
+              +-------------------+
+              | Statistics Manager|
+              +-------------------+
+                        |
+                        v
+              +-------------------+
+              |   MySQL Database  |
+              +-------------------+
+                        |
+        +---------------+---------------+
+        |               |               |
+        v               v               v
+    students          marks        attendance
+
+Component Responsibilities
+
+Student Management
+
+Add student
+View students
+Search student
+Update student
+Delete student
+
+Marks Management
+
+Add marks
+View marks
+Update marks
+Delete marks
+Calculate total, percentage and grade
+
+Attendance Management
+
+Add attendance
+View attendance
+Update attendance
+Delete attendance
+Calculate attendance percentage and eligibility
+
+Report Generator
+
+Combines student, marks and attendance information
+Generates individual performance report
+Determines final result
+
+Statistics Manager
+
+Calculates class average
+Finds highest and lowest percentage
+Finds class topper
+Calculates pass/fail statistics
+Calculates grade statistics
+
+MySQL Database
+
+Stores student information
+Stores marks
+Stores attendance information
+Sequence Diagram
+
+User
+ |
+ | Enter Roll Number
+ v
+Main
+ |
+ | Request Student Details
+ v
+StudentManager
+ |
+ | Query Database
+ v
+MySQL Database
+ |
+ | Student Details
+ v
+StudentManager
+ |
+ | Return Student
+ v
+Main
+ |
+ | Request Marks
+ v
+MarksManager
+ |
+ | Query Database
+ v
+MySQL Database
+ |
+ | Marks Details
+ v
+MarksManager
+ |
+ | Return Marks
+ v
+Main
+ |
+ | Request Attendance
+ v
+AttendanceManager
+ |
+ | Query Database
+ v
+MySQL Database
+ |
+ | Attendance Details
+ v
+AttendanceManager
+ |
+ | Return Attendance
+ v
+Main
+ |
+ | Generate Report
+ v
+ReportGenerator
+ |
+ | Calculate Percentage,
+ | Grade and Final Result
+ v
+User
+ |
+ | Display Performance Report
+ v
+Sequence Flow
+User selects Generate Performance Report.
+Main class receives the student's roll number.
+StudentManager retrieves student details from MySQL.
+MarksManager retrieves marks from MySQL.
+AttendanceManager retrieves attendance from MySQL.
+ReportGenerator combines all information.
+Percentage and grade are calculated.
+Attendance eligibility is checked.
+Final result is generated.
+The complete performance report is displayed to the user.
+
 19. Conclusion
 
 The Student Performance Analyzer provides a structured solution for managing student academic information.
